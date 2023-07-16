@@ -8,19 +8,19 @@
     "net7.0": []
   },
   "packageFolders": {
-    "/Users/thomaschen/.nuget/packages/": {}
+    "C:\\Users\\cx200\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/thomaschen/RiderProjects/Eventy/Domain/Domain.csproj",
+      "projectUniqueName": "C:\\Users\\cx200\\RiderProjects\\Eventy\\Domain\\Domain.csproj",
       "projectName": "Domain",
-      "projectPath": "/Users/thomaschen/RiderProjects/Eventy/Domain/Domain.csproj",
-      "packagesPath": "/Users/thomaschen/.nuget/packages/",
-      "outputPath": "/Users/thomaschen/RiderProjects/Eventy/Domain/obj/",
+      "projectPath": "C:\\Users\\cx200\\RiderProjects\\Eventy\\Domain\\Domain.csproj",
+      "packagesPath": "C:\\Users\\cx200\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\cx200\\RiderProjects\\Eventy\\Domain\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/thomaschen/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\cx200\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
@@ -59,7 +59,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.202/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -1155,19 +1155,19 @@
     ]
   },
   "packageFolders": {
-    "/Users/thomaschen/.nuget/packages/": {}
+    "C:\\Users\\cx200\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/thomaschen/RiderProjects/Eventy/Persistence/Persistence.csproj",
+      "projectUniqueName": "C:\\Users\\cx200\\RiderProjects\\Eventy\\Persistence\\Persistence.csproj",
       "projectName": "Persistence",
-      "projectPath": "/Users/thomaschen/RiderProjects/Eventy/Persistence/Persistence.csproj",
-      "packagesPath": "/Users/thomaschen/.nuget/packages/",
-      "outputPath": "/Users/thomaschen/RiderProjects/Eventy/Persistence/obj/",
+      "projectPath": "C:\\Users\\cx200\\RiderProjects\\Eventy\\Persistence\\Persistence.csproj",
+      "packagesPath": "C:\\Users\\cx200\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\cx200\\RiderProjects\\Eventy\\Persistence\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/thomaschen/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\cx200\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
@@ -1179,8 +1179,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "/Users/thomaschen/RiderProjects/Eventy/Domain/Domain.csproj": {
-              "projectPath": "/Users/thomaschen/RiderProjects/Eventy/Domain/Domain.csproj"
+            "C:\\Users\\cx200\\RiderProjects\\Eventy\\Domain\\Domain.csproj": {
+              "projectPath": "C:\\Users\\cx200\\RiderProjects\\Eventy\\Domain\\Domain.csproj"
             }
           }
         }
@@ -1216,7 +1216,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.202/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
       }
     }
   }

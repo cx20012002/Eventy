@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "fT0wDtY/4VQ4gDFK4pXrMtU+OkJbYXcgINfko+4iTzFfv4x3EWgm1JTHdAptRnqD3gprGonfp6sStCeUmfpboQ==",
+  "dgSpecHash": "caBrxtq79Mxq/zOV0mcMM0w/MWERgqJWqIrreilwb/NK5jIigIO79XDKZGjq/WR0kLM8e0Mpd1F1zMjjQkLW0g==",
   "success": true,
-  "projectFilePath": "/Users/thomaschen/RiderProjects/Eventy/Domain/Domain.csproj",
+  "projectFilePath": "C:\\Users\\cx200\\RiderProjects\\Eventy\\Domain\\Domain.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
