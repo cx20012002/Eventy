@@ -1,14 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './layout/styles.css';
-import App from './layout/App';
+import 'react-toastify/dist/ReactToastify.css';
+import 'react-datepicker/dist/react-datepicker.css';
+import './app/layout/styles.css';
 import reportWebVitals from './reportWebVitals';
+import {RouterProvider} from "react-router-dom";
+import {router} from "./router/Routes";
+import {Provider} from "react-redux";
+import {store} from "./redux/store";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 root.render(
-    <App/>
+    <Provider store={store}>
+        <RouterProvider router={router}/>
+    </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
