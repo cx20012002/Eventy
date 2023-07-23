@@ -3,6 +3,7 @@ import {User, UserFormValues} from "../../app/models/user";
 import agent from "../../app/api/agent";
 import {router} from "../../router/Routes";
 import {store} from "../../redux/store";
+import {setActivityLoaded} from "../activities/activitySlice";
 
 interface AccountState {
     user: User | undefined;
@@ -48,6 +49,7 @@ export const fetchUserAsync = createAsyncThunk<User>(
 export const logout = () => {
     localStorage.removeItem('jwt');
     store.dispatch(setUser(undefined));
+    store.dispatch(setActivityLoaded(false));
     router.navigate('/');
 }
 

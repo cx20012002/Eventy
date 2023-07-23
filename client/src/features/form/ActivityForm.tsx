@@ -16,7 +16,7 @@ import {
 } from "../activities/activitySlice";
 import LoadingComponent from "../../components/LoadingComponent";
 import moment from "moment-timezone";
-import {Activity} from "../../app/models/Activity";
+import {Activity, ActivityFormValues} from "../../app/models/Activity";
 import {router} from "../../router/Routes";
 import {v4 as uuid} from "uuid";
 
@@ -44,7 +44,7 @@ function ActivityForm() {
         venue: yup.string().required(),
         city: yup.string().required()
     } as FieldValues)
-    
+
     const {control, handleSubmit, formState: {isValid, isSubmitting}, reset} = useForm<FieldValues>({
         resolver: yupResolver(validationSchema),
         mode: "all"
@@ -52,7 +52,7 @@ function ActivityForm() {
 
     useEffect(() => {
         if (id && !selectedActivity) dispatch(fetchActivityAsync(id));
-        reset(selectedActivity);
+        reset(new ActivityFormValues(selectedActivity as any));
     }, [id, selectedActivity, dispatch, reset])
 
     const onSubmit = async (data: FieldValues) => {
@@ -74,11 +74,28 @@ function ActivityForm() {
             <form onSubmit={handleSubmit(onSubmit)} className={"w-[800px] shadow bg-white rounded mx-auto p-8"}>
                 <h2 className={"font-medium text-primary"}>Activity Form</h2>
                 <AppTextInput name={"title"} control={control} label={"Title"} className={inputStyle}/>
-                <AppTextInput multiline={"yes"} rows={5} name={"description"} control={control} label={"Description"}
-                              className={inputStyle}/>
-                <AppSelectInput label={"Category"} items={categories} name={"category"} control={control}/>
-                <AppDateInput name={"date"} control={control} label={"Date"} showTimeSelect timeCaption={"time"}
-                              dateFormat={"d MMM, yyy h:mm aa"}/>
+                <AppTextInput 
+                    multiline={"yes"} 
+                    rows={5} 
+                    name={"description"}
+                    control={control}
+                    label={"Description"}
+                    className={inputStyle}
+                />
+                <AppSelectInput 
+                    label={"Category"} 
+                    items={categories} 
+                    name={"category"} 
+                    control={control}
+                />
+                <AppDateInput 
+                    name={"date"} 
+                    control={control} 
+                    label={"Date"} 
+                    showTimeSelect 
+                    timeCaption={"time"}
+                    dateFormat={"d MMM, yyy h:mm aa"}
+                />
                 <h2 className={"mt-3 font-medium text-primary"}>Location Details</h2>
                 <AppTextInput name={"venue"} control={control} label={"Venue"} className={inputStyle}/>
                 <AppTextInput name={"city"} control={control} label={"City"} className={inputStyle}/>
