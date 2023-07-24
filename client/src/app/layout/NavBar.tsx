@@ -59,7 +59,7 @@ function NavBar() {
                                     className={"absolute flex flex-col right-0 mt-2 p-3 w-56 origin-top-right divide-y divide-gray-200 rounded-md bg-white shadow-lg"}>
                                     <Menu.Item>
                                         {({active}) => (
-                                            <Link to={"/"}
+                                            <Link to={`/profiles/${user.username}`}
                                                   className={`${active && 'bg-gray-100 rounded'} w-full p-3 flex items-center gap-2`}><BiSolidUser
                                                 size={17}/> My Profile</Link>
                                         )}

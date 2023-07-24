@@ -116,6 +116,21 @@ export const updateAttendeeAsync = createAsyncThunk<Activity, string, { state: R
     }
 );
 
+export const cancelActivityAsync = createAsyncThunk<Activity, string, { state: RootState }>(
+    'activity/cancelActivity',
+    async (id, thunkAPI) => {
+        try {
+            await agent.Activities.attend(id);
+            const selectedActivity = activityAdapter.getSelectors().selectById(thunkAPI.getState().activity, id);
+            const updatedActivity = {...selectedActivity, attendees: [...selectedActivity!.attendees!]};
+            updatedActivity.isCancelled = !updatedActivity.isCancelled;
+            return updatedActivity as Activity;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error);
+        }
+    }
+);
+
 const activityInDateFormat = (activity: Activity) => {
     return {...activity, date: moment(activity.date).format('DD MMM, YYYY h:mm a')};
 }
@@ -172,6 +187,13 @@ export const activitySlice = createSlice({
             state.status = 'updating';
         })
         builder.addCase(updateAttendeeAsync.fulfilled, (state, action) => {
+            state.status = 'idle';
+            activityAdapter.upsertOne(state, action.payload);
+        })
+        builder.addCase(cancelActivityAsync.pending, (state) => {
+            state.status = 'updating';
+        })
+        builder.addCase(cancelActivityAsync.fulfilled, (state, action) => {
             state.status = 'idle';
             activityAdapter.upsertOne(state, action.payload);
         })

@@ -25,7 +25,6 @@ function LoadingButton({isLoading, onClick, children, className, disabled, label
                         {label}
                     </div> : children
             }
-
         </button>
     )
 }

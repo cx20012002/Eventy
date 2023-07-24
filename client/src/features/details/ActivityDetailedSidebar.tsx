@@ -16,7 +16,7 @@ function ActivityDetailedSidebar({activity: {attendees, host}}: Props) {
             <ul className={"p-5 flex flex-col gap-5"}>
                 {attendees.map((attendee, index) => (
                     <li key={index} className={"flex gap-5 w-full"}>
-                        <img src="/assets/user.png" alt="User" className={"w-20"}/>
+                        <img src={attendee.image || "/assets/user.png"} alt="User" className={"w-20"}/>
                         <div className={"flex justify-between w-full items-center"}>
                             <div className={"flex flex-col"}>
                                 <Link to={`/profiles/${attendee.username}`}

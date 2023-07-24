@@ -1,12 +1,14 @@
 import React, {useState} from 'react';
 import ValidationError from "./ValidationError";
 import axios from "axios";
+import ProfileCard from "../../components/ProfileCard";
 
 const buttonStyles = "border border-neutral-400 p-3 w-full rounded hover:text-primary hover:border-primary transition duration-300";
 
 function ErrorsTest() {
     const baseUrl = 'http://localhost:5140/api/'
     const [errors, setErrors] = useState<string[]>([])
+    
     return (
         <section>
             <h1 className={"text-2xl font-bold mb-10"}>Errors for testing purposes</h1>
