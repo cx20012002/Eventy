@@ -62,7 +62,14 @@ export const createActivityAsync = createAsyncThunk<Activity, Activity, { state:
         try {
             await agent.Activities.create(activity);
             const user = await thunkAPI.getState().account.user;
-            return {...activity, isHost: true, isGoing: true, attendees: [new Profile(user!)]};
+            return {
+                ...activity, 
+                isHost: true, 
+                isGoing: true, 
+                attendees: [new Profile(user!)], 
+                host: new Profile(user!),
+                hostUsername: user!.username
+            } as Activity;
         } catch (error:any) {
             return thunkAPI.rejectWithValue({error: error.data});
         }
@@ -202,3 +209,4 @@ export const activitySlice = createSlice({
 
 export const activitySelector = activityAdapter.getSelectors((state: RootState) => state.activity); 
 export const {setActivityLoaded} = activitySlice.actions;
+

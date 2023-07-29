@@ -3,7 +3,6 @@ import {AiFillCalendar} from "react-icons/ai";
 import {FaLocationDot} from "react-icons/fa6";
 import {FaInfo} from "react-icons/fa";
 import {Activity} from "../../app/models/Activity";
-import moment from "moment/moment";
 
 interface Props {
     activity: Activity;

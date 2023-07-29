@@ -1,5 +1,4 @@
 import React from 'react';
-import {FaFilter} from "react-icons/fa";
 import {Calendar} from "react-calendar";
 
 function ActivityFilters() {

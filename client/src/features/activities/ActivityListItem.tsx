@@ -46,7 +46,7 @@ function ActivityListItem({activity}: Props) {
                     <span
                         className={"flex items-center gap-1"}>
                         <FaLocationDot size={15} className={"text-primary"}/> 
-                        <span>{activity.city} {activity.venue}</span>
+                        <span>{activity.city}, {activity.venue}</span>
                     </span>
                 </div>
                 <ActivityListItemAttendee attendees={activity.attendees!}/>

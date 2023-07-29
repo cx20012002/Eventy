@@ -1,11 +1,6 @@
 import React from 'react';
 import { useController, UseControllerProps } from "react-hook-form";
 
-interface Item {
-    value: string;
-    text: string;
-}
-
 interface Props<T extends { value: string; text: string }> extends UseControllerProps {
     label: string;
     items: T[];
@@ -19,7 +14,7 @@ function AppSelectInput<T extends { value: string; text: string }>(props: Props<
             <select
                 {...field}
                 {...props}
-                className={`mt-3 rounded border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:outline-none focus:border-gray-400 ${error ? "border-red-300 bg-red-50 placeholder:text-red-300" : ""}`}
+                className={`mt-3 rounded appearance-none border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:outline-none focus:border-gray-400 ${error ? "border-red-300 bg-red-50 placeholder:text-red-300" : ""}`}
             >
                 <option value="" disabled>Select your category</option>
                 {props.items.map((item, index) => (

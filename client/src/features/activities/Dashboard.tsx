@@ -10,10 +10,12 @@ function Dashboard() {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
+        console.log(123)
         if (!activitiesLoaded) dispatch(fetchActivitiesAsync());
     }, [dispatch, activitiesLoaded])
-
+    
     if (status === 'loading') return <LoadingComponent/>
+ 
     
     return (
         <div className={"flex gap-10"}>
