@@ -15,9 +15,9 @@ function ActivityList() {
     ).sort((a, b) => Date.parse(a[0]) - Date.parse(b[0]));
     
     return (
-        <section className={"flex flex-col gap-5"}>
+        <section className={"flex flex-col gap-5 "}>
             {groupedActivities && groupedActivities.map(([group, activities]) => (
-                <Fragment key={group}>
+                <div key={group}>
                     <div className={"shadow p-10 bg-white rounded-lg"}>
                         <h2 className={"rounded text-xs font-bold text-gray-500 mb-3"}>{group}</h2>
                         <div className={"flex flex-col gap-y-16"}>
@@ -26,7 +26,7 @@ function ActivityList() {
                             ))}
                         </div>
                     </div>
-                </Fragment>
+                </div>
             ))}
         </section>
     )

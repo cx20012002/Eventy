@@ -24,7 +24,7 @@ function ActivityDetails() {
             <div className={"col-span-7"}>
                 <ActivityDetailedHeader activity={selectedActivity}/>
                 <ActivityDetailedInfo activity={selectedActivity}/>
-                <ActivityDetailedChat/>
+                <ActivityDetailedChat activityId={id as string}/>
             </div>
             <div className={"col-span-5"}>
                 <ActivityDetailedSidebar activity={selectedActivity}/>

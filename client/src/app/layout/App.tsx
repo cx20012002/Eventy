@@ -27,7 +27,7 @@ function App() {
                 user &&
                 <div className={"bg-gray-50"}>
                     <NavBar/>
-                    <div className={"container sm:px-5 px-2 mt-16 mx-auto"}>
+                    <div className={"container sm:px-5 px-2 mt-16 mx-auto h-screen mb-20"}>
                         <Outlet/>
                     </div>
                 </div>

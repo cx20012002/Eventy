@@ -3,6 +3,9 @@ import {Popover, Transition} from "@headlessui/react";
 import {Profile} from "../app/models/profile";
 import {BiSolidUser} from "react-icons/bi";
 import {Link} from "react-router-dom";
+import {useAppDispatch, useAppSelector} from "../redux/store";
+import {updateAttendeeFollowingAsync} from "../features/activities/activitySlice";
+import LoadingButton from "./LoadingButton";
 
 interface Props {
     attendee: Profile;
@@ -10,20 +13,28 @@ interface Props {
 
 function ProfileCard({attendee}: Props) {
     const [isHovered, setIsHovered] = useState(false);
+    const dispatch = useAppDispatch();
+    const {status} = useAppSelector(state => state.activity)
+    const {user} = useAppSelector(state => state.account)
     const handleHover = () => {
         setIsHovered(true);
     };
     const handleMouseLeave = () => {
         setIsHovered(false);
     };
-
+    
     return (
         <>
             <Popover className="relative">
                 <>
                     <Link to={`/profiles/${attendee.username}`}>
-                        <img className={"rounded-full w-12 h-12"} onMouseEnter={handleHover} onMouseLeave={handleMouseLeave}
-                             src={attendee.image || "/assets/user.png"} alt=""/>
+                        <img 
+                            className={`rounded-full w-12 h-12 ${attendee.following ? 'outline outline-primary' : ''}`} 
+                            onMouseEnter={handleHover} 
+                            onMouseLeave={handleMouseLeave}
+                            src={attendee.image || "/assets/user.png"} 
+                            alt=""
+                        />
                     </Link>
                     <Transition
                         as={Fragment}
@@ -45,7 +56,18 @@ function ProfileCard({attendee}: Props) {
                                 <h3 className={"font-bold"}>{attendee.displayName}</h3>
                                 <small>Bio goes here</small>
                                 <hr className={"block my-3"}/>
-                                 <small className={"flex items-center gap-2"}><BiSolidUser size={15}/> 20 Followers</small>
+                                 <small className={"flex items-center gap-2"}>
+                                     <BiSolidUser size={15}/> {attendee.followersCount} Followers
+                                 </small>
+                                {user?.username !== attendee.username &&
+                                    <LoadingButton
+                                        isLoading={status === 'updating'}
+                                        disabled={status === 'updating'}
+                                        onClick={()=>dispatch(updateAttendeeFollowingAsync(attendee.username))}
+                                        className={`w-full h-8 text-white text-sm disabled:opacity-50 ${attendee.following ? ' bg-orange-500' : 'bg-primary'}`}>
+                                        {attendee.following ? 'Unfollowing' : 'Following'}
+                                    </LoadingButton>
+                                }
                             </div>
                         </Popover.Panel>
                     </Transition>

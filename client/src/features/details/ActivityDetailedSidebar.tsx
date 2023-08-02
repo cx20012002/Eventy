@@ -21,7 +21,9 @@ function ActivityDetailedSidebar({activity: {attendees, host}}: Props) {
                             <div className={"flex flex-col"}>
                                 <Link to={`/profiles/${attendee.username}`}
                                       className={"font-medium text-gray-600"}>{attendee.displayName}</Link>
-                                <span className={"text-sm text-orange-500"}>Following</span>
+                                {attendee.following && (
+                                    <span className={"text-sm text-orange-500"}>Following</span>
+                                )}
                             </div>
                             {attendee.username === host?.username && (
                                 <span className={"bg-primary text-white text-sm rounded px-5 py-1 h-fit"}>Host</span>

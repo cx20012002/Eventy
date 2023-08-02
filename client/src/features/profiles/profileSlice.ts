@@ -7,83 +7,98 @@ import {setActivityLoaded} from "../activities/activitySlice";
 
 interface ProfileState {
     profile: Profile | null;
+    followings: Profile[];
     isCurrentUser: boolean;
     status: string;
 }
 
 const initialState: ProfileState = {
     profile: null,
+    followings: [],
     isCurrentUser: false,
     status: 'idle'
 }
 
 export const getProfileAsync = createAsyncThunk<Profile, string, { state: RootState }>(
     'profile/getProfileAsync',
-    async (username: string, thunkAPI) => {
+    async (username: string, {dispatch, rejectWithValue}) => {
         try {
+            dispatch(setActivityLoaded(false));
             return await agent.Profiles.get(username);
         } catch (error: any) {
-            return thunkAPI.rejectWithValue({error: error.data});
+            return rejectWithValue({error: error.data});
         }
     }
 );
 
 export const updateProfileAsync = createAsyncThunk<Profile, Partial<Profile>, { state: RootState }>(
     'profile/updateProfileAsync',
-    async (profile: Partial<Profile>, thunkAPI) => {
+    async (profile: Partial<Profile>, {getState, dispatch, rejectWithValue}) => {
         try {
-            const user = thunkAPI.getState().account.user;
+            const user = getState().account.user;
             await agent.Profiles.updateProfile({displayName: profile.displayName, bio: profile.bio});
-            thunkAPI.dispatch(setUser({...user, displayName: profile.displayName}));
+            dispatch(setUser({...user, displayName: profile.displayName}));
             return profile as Profile;
         } catch (error: any) {
-            return thunkAPI.rejectWithValue({error: error.data});
+            return rejectWithValue({error: error.data});
         }
     }
 );
 
 export const uploadPhotoAsync = createAsyncThunk<Photo, Blob, { state: RootState }>(
     'profile/uploadPhotoAsync',
-    async (file: Blob, thunkAPI) => {
+    async (file: Blob, {getState, dispatch, rejectWithValue}) => {
         try {
-            const user = thunkAPI.getState().account.user;
+            const user = getState().account.user;
             const response = await agent.Profiles.uploadPhoto(file);
             const photo = response.data;
-            
+
             if (photo.isMain) {
-                thunkAPI.dispatch(setUser({...user, image: photo.url}));
-                thunkAPI.dispatch(setActivityLoaded(false));
+                dispatch(setUser({...user, image: photo.url}));
+                dispatch(setActivityLoaded(false));
             }
             return photo;
         } catch (error: any) {
-            return thunkAPI.rejectWithValue({error: error.data});
+            return rejectWithValue({error: error.data});
         }
     }
 );
 
 export const setMainPhotoAsync = createAsyncThunk<Photo, Photo, { state: RootState }>(
     'profile/setMainPhotoAsync',
-    async (photo: Photo, thunkAPI) => {
+    async (photo: Photo, {getState, dispatch, rejectWithValue}) => {
         try {
-            const user = thunkAPI.getState().account.user;
+            const user = getState().account.user;
             await agent.Profiles.setMainPhoto(photo.id);
-            thunkAPI.dispatch(setUser({...user, image: photo.url}));
-            thunkAPI.dispatch(setActivityLoaded(false));
+            dispatch(setUser({...user, image: photo.url}));
+            dispatch(setActivityLoaded(false));
             return photo;
         } catch (error: any) {
-            return thunkAPI.rejectWithValue({error: error.data});
+            return rejectWithValue({error: error.data});
         }
     }
 );
 
 export const deletePhotoAsync = createAsyncThunk<string, string, { state: RootState }>(
     'profile/deletePhotoAsync',
-    async (photoId: string, thunkAPI) => {
+    async (photoId: string, {rejectWithValue}) => {
         try {
             await agent.Profiles.deletePhoto(photoId);
             return photoId;
         } catch (error: any) {
-            return thunkAPI.rejectWithValue({error: error.data});
+            return rejectWithValue({error: error.data});
+        }
+    }
+);
+
+export const getFollowingsAsync = createAsyncThunk<Profile[], string, { state: RootState }>(
+    'profile/getFollowingsAsync',
+    async (predicate, {getState, rejectWithValue}) => {
+        try {
+            const {profile} = getState().profile;
+            return await agent.Profiles.listFollowings(profile!.username, predicate);
+        } catch (error: any) {
+            return rejectWithValue({error: error.data});
         }
     }
 );
@@ -91,7 +106,11 @@ export const deletePhotoAsync = createAsyncThunk<string, string, { state: RootSt
 export const profileSlice = createSlice({
     name: 'profile',
     initialState,
-    reducers: {},
+    reducers: {
+        setProfile: (state, action) => {
+            state.profile = action.payload;
+        }
+    },
     extraReducers: builder => {
         builder.addCase(getProfileAsync.pending, (state) => {
             state.status = 'loading';
@@ -142,6 +161,14 @@ export const profileSlice = createSlice({
                 state.profile.bio = action.payload.bio;
             }
         });
+        builder.addCase(getFollowingsAsync.pending, (state) => {
+            state.status = 'loading-followings';
+        });
+        builder.addCase(getFollowingsAsync.fulfilled, (state, action) => {
+            state.status = 'idle';
+            state.followings = action.payload;
+        });
     }
 });
 
+export const {setProfile} = profileSlice.actions;
